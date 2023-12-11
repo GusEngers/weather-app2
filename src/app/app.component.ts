@@ -1,15 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SearchComponent } from './components/search/search.component';
 import { InfoComponent } from './components/info/info.component';
+import { DataApiService } from './services/data-api.service';
+import { ErrorApi } from './interfaces/error-api.interface';
+import { WeatherApi } from './interfaces/weather-api.interface';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet, SearchComponent, InfoComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  public error: ErrorApi = { status: false };
+  public loading: boolean = true;
+  public weather?: WeatherApi;
+  public daysWeather?: WeatherApi[];
+  public location?: string;
+
+  constructor(private api: DataApiService) {}
+
+  ngOnInit(): void {}
 }
