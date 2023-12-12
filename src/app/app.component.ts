@@ -15,6 +15,7 @@ import { WeatherApi } from './interfaces/weather-api.interface';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
+  public start: boolean = false;
   public error: ErrorApi = { status: false };
   public loading: boolean = true;
   public weather?: WeatherApi;
@@ -24,37 +25,37 @@ export class AppComponent implements OnInit {
   constructor(private api: DataApiService) {}
 
   ngOnInit(): void {
-    this.api.getHomeLocation().subscribe({
-      next: (value) => {
-        this.location = `${value.city}, ${value.region}, ${value.country_name}`;
-        this.api.getWeatherDay(this.location).subscribe({
-          next: (value) => {
-            this.weather = value;
-            this.api
-              .getWeatherFiveDays(
-                this.location ?? 'San Javier, Misiones, Argentina'
-              )
-              .subscribe({
-                next: (value) => {
-                  this.daysWeather = value;
-                },
-                error: (err) => {
-                  this.error = { status: true, message: err.message };
-                  this.loading = false;
-                },
-              });
-            this.loading = false;
-          },
-          error: (err) => {
-            this.error = { status: true, message: err.message };
-            this.loading = false;
-          },
-        });
-      },
-      error: (err) => {
-        this.error = { status: true, message: err.message };
-        this.loading = false;
-      },
-    });
+    // this.api.getHomeLocation().subscribe({
+    //   next: (value) => {
+    //     this.location = `${value.city}, ${value.region}, ${value.country_name}`;
+    //     this.api.getWeatherDay(this.location).subscribe({
+    //       next: (value) => {
+    //         this.weather = value;
+    //         this.api
+    //           .getWeatherFiveDays(
+    //             this.location ?? 'San Javier, Misiones, Argentina'
+    //           )
+    //           .subscribe({
+    //             next: (value) => {
+    //               this.daysWeather = value;
+    //             },
+    //             error: (err) => {
+    //               this.error = { status: true, message: err.message };
+    //               this.loading = false;
+    //             },
+    //           });
+    //         this.loading = false;
+    //       },
+    //       error: (err) => {
+    //         this.error = { status: true, message: err.message };
+    //         this.loading = false;
+    //       },
+    //     });
+    //   },
+    //   error: (err) => {
+    //     this.error = { status: true, message: err.message };
+    //     this.loading = false;
+    //   },
+    // });
   }
 }

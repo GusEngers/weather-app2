@@ -1,9 +1,15 @@
-<app-search [start]="true"></app-search>
-<app-search [start]="false"></app-search>
+@if(start) {
+  <app-search [start]="start"></app-search>
+} @else {
 
-<app-info
-  [daysWeather]="daysWeather"
-  [error]="error"
-  [loading]="loading"
-  [weather]="weather"
-></app-info>
+  <main class="main">
+    <app-search [start]="start"></app-search>
+
+    <app-info
+      [daysWeather]="daysWeather"
+      [error]="error"
+      [loading]="loading"
+      [weather]="weather"
+    ></app-info>
+  </main>
+}

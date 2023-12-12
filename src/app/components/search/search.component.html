@@ -1,16 +1,15 @@
 @if (start) {
 
-<header>
-  <h1>Weather-App</h1>
-  <p>Obtén los datos meteorológicos del lugar donde estas</p>
-  <input type="search" placeholder="Busca tu lugar" />
+<header class="header">
+  <h1>Info Clima</h1>
+  <p>Obtén los datos meteorológicos del lugar que quieras</p>
+  <input type="search" placeholder="Ciudad, Estado, País" />
 </header>
 
 } @else {
 
-<header>
-  <h1>Weather-App</h1>
-  <input type="search" placeholder="Busca tu lugar" />
-</header>
+<nav class="nav">
+  <input type="search" placeholder="🔍 Ciudad, Estado, País" />
+</nav>
 
 }
