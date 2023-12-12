@@ -1,1 +1,11 @@
-<h1>Info works!</h1>
+@if (loading) {
+  <app-loading></app-loading>
+} @else if (error?.status) {
+  <app-not-info [error]="error"></app-not-info>
+} @else {
+  <h1>{{ weather?.name }}</h1>
+  
+  @for (day of daysWeather; track $index) {
+    <p>{{ day.dt_txt }}</p>
+  }
+}

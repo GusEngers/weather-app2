@@ -34,8 +34,8 @@ export interface WeatherApi {
   wind: { speed: number; deg: number; gust: number };
   visibility: number;
   pop?: number;
-  rain: { '1h'?: number; '3h'?: number };
-  snow: { '1h'?: number; '3h'?: number };
+  rain?: { '1h'?: number; '3h'?: number };
+  snow?: { '1h'?: number; '3h'?: number };
   sys: SystemWeather;
   dt_txt?: string;
   coord?: { lon: number; lat: number };
