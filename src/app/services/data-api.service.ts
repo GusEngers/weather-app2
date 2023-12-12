@@ -11,9 +11,9 @@ import {
   providedIn: 'root',
 })
 export class DataApiService {
-  private API_KEY: string = 'MI-API-KEY';
-  private IP_API: string = 'https://ipapi.co';
-  private WEATHER_API: string = 'https://api.openweathermap.org/data/2.5';
+  private API_KEY: string = import.meta.env['NG_APP_WEATHER_API_KEY'];
+  private IP_API: string = import.meta.env['NG_APP_IP_API'];
+  private WEATHER_API: string = import.meta.env['NG_APP_WEATHER_API'];
 
   constructor(private http: HttpClient) {}
 
