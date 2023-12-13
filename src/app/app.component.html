@@ -1,15 +1,15 @@
 @if(start) {
-  <app-search [start]="start"></app-search>
+<app-search [start]="start" (submitEvent)="handleSubmit($event)"></app-search>
 } @else {
 
-  <main class="main">
-    <app-search [start]="start"></app-search>
-
-    <app-info
-      [daysWeather]="daysWeather"
-      [error]="error"
-      [loading]="loading"
-      [weather]="weather"
-    ></app-info>
-  </main>
+<main class="main">
+  <app-search [start]="start" (submitEvent)="handleSubmit($event)"></app-search>
+  <h1>{{ location }}</h1>
+  <app-info
+    [daysWeather]="daysWeather"
+    [error]="error"
+    [loading]="loading"
+    [weather]="weather"
+  ></app-info>
+</main>
 }

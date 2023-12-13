@@ -15,7 +15,7 @@ import { WeatherApi } from './interfaces/weather-api.interface';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  public start: boolean = false;
+  public start: boolean = true;
   public error: ErrorApi = { status: false };
   public loading: boolean = true;
   public weather?: WeatherApi;
@@ -25,26 +25,27 @@ export class AppComponent implements OnInit {
   constructor(private api: DataApiService) {}
 
   ngOnInit(): void {
+    // Buscamos la ubicación del cliente por su IP
     // this.api.getHomeLocation().subscribe({
     //   next: (value) => {
     //     this.location = `${value.city}, ${value.region}, ${value.country_name}`;
+    //     // Buscamos los datos del clima de la ubicación del cliente
     //     this.api.getWeatherDay(this.location).subscribe({
     //       next: (value) => {
     //         this.weather = value;
-    //         this.api
-    //           .getWeatherFiveDays(
-    //             this.location ?? 'San Javier, Misiones, Argentina'
-    //           )
-    //           .subscribe({
-    //             next: (value) => {
-    //               this.daysWeather = value;
-    //             },
-    //             error: (err) => {
-    //               this.error = { status: true, message: err.message };
-    //               this.loading = false;
-    //             },
-    //           });
-    //         this.loading = false;
+    //         // Obtenemos los datos del clima de la ubicación de los siguientes 5 días
+    //         this.api.getWeatherFiveDays(this.location).subscribe({
+    //           next: (value) => {
+    //             this.daysWeather = value;
+    //             this.loading = false;
+    //             this.start = false;
+    //             this.error = { status: false };
+    //           },
+    //           error: (err) => {
+    //             this.error = { status: true, message: err.message };
+    //             this.loading = false;
+    //           },
+    //         });
     //       },
     //       error: (err) => {
     //         this.error = { status: true, message: err.message };
@@ -52,10 +53,39 @@ export class AppComponent implements OnInit {
     //       },
     //     });
     //   },
-    //   error: (err) => {
-    //     this.error = { status: true, message: err.message };
+    //   error: () => {
+    //     this.start = true;
     //     this.loading = false;
     //   },
     // });
+  }
+
+  handleSubmit(data: string) {
+    this.loading = true;
+    this.location = data;
+    setTimeout(() =>{
+      this.api.getWeatherDay(this.location).subscribe({
+        next: (value) => {
+          this.weather = value;
+          // Obtenemos los datos del clima de la ubicación de los siguientes 5 días
+          this.api.getWeatherFiveDays(this.location).subscribe({
+            next: (value) => {
+              this.daysWeather = value;
+              this.loading = false;
+              this.start = false;
+              this.error = { status: false };
+            },
+            error: (err) => {
+              this.error = { status: true, message: err.message };
+              this.loading = false;
+            },
+          });
+        },
+        error: (err) => {
+          this.error = { status: true, message: err.message };
+          this.loading = false;
+        },
+      });
+    }, 3000)
   }
 }

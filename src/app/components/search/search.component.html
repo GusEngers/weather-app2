@@ -3,13 +3,29 @@
 <header class="header">
   <h1>Info Clima</h1>
   <p>Obtén los datos meteorológicos del lugar que quieras</p>
-  <input type="search" placeholder="Ciudad, Estado, País" />
+  <form class="form" (submit)="onSubmit()">
+    <input type="search" [(ngModel)]="value" name="search" placeholder="Ciudad, Estado, País" />
+    <button type="submit" [disabled]="value.length <= 2">Buscar</button>
+  </form>
+
+  @if(value.length > 0 && value.length <= 2) {
+    <p class="error">Mínimo dos caracteres</p>
+  }
+
 </header>
 
 } @else {
 
 <nav class="nav">
-  <input type="search" placeholder="🔍 Ciudad, Estado, País" />
+  <form class="form" (submit)="onSubmit()">
+    <input type="search" [(ngModel)]="value" name="search" placeholder="🔍 Ciudad, Estado, País" />
+    <button type="submit" [disabled]="value.length <= 2">Buscar</button>
+  </form>
+
+  @if(value.length > 0 && value.length <= 2) {
+    <p class="error">Mínimo dos caracteres</p>
+  }
+
 </nav>
 
 }

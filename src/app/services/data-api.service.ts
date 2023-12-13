@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, of } from 'rxjs';
+import { Observable, catchError, map, of, throwError } from 'rxjs';
 import { IpApi, IpApiResponse } from '../interfaces/ip-api.interface';
 import {
   ListWeatherResponse,
@@ -23,7 +23,7 @@ export class DataApiService {
    * @returns {Observable<IpApi>}
    */
   getHomeLocation(): Observable<IpApi> {
-    return of(MOCK_IP)
+    return of(MOCK_IP);
     // return this.http.get<IpApiResponse>(this.IP_API + '/json').pipe(
     //   map((value: IpApiResponse): IpApi => {
     //     return {
@@ -31,7 +31,8 @@ export class DataApiService {
     //       country_name: value.country_name,
     //       region: value.region,
     //     };
-    //   })
+    //   }),
+    //   catchError((err: Error) => throwError(() => new Error(err.message)))
     // );
   }
 
@@ -40,15 +41,19 @@ export class DataApiService {
    * @param {string} location Nombre de la ciudad, región o país
    * @returns {Observable<WeatherApi>}
    */
-  getWeatherDay(location: string): Observable<WeatherApi> {
-    return of(MOCK_WEATHER)
-    // return this.http.get<WeatherApi>(this.WEATHER_API + '/weather', {
-    //   params: {
-    //     q: location,
-    //     appid: this.API_KEY,
-    //     units: 'metric',
-    //   },
-    // });
+  getWeatherDay(location: string = ''): Observable<WeatherApi> {
+    return of(MOCK_WEATHER);
+    // return this.http
+    //   .get<WeatherApi>(this.WEATHER_API + '/weather', {
+    //     params: {
+    //       q: location,
+    //       appid: this.API_KEY,
+    //       units: 'metric',
+    //     },
+    //   })
+    //   .pipe(
+    //     catchError((err: Error) => throwError(() => new Error(err.message)))
+    //   );
   }
 
   /**
@@ -56,8 +61,8 @@ export class DataApiService {
    * @param {string} location Nombre de la ciudad, región o país
    * @returns {Observable<WeatherApi[]>}
    */
-  getWeatherFiveDays(location: string): Observable<WeatherApi[]> {
-    return of(MOCK_DAYS_WEATHER)
+  getWeatherFiveDays(location: string = ''): Observable<WeatherApi[]> {
+    return of(MOCK_DAYS_WEATHER);
     // return this.http
     //   .get<ListWeatherResponse>(this.WEATHER_API + '/forecast', {
     //     params: {
@@ -73,7 +78,8 @@ export class DataApiService {
     //         (val: WeatherApi) =>
     //           val['dt_txt'] && val['dt_txt'].includes('12:00:00')
     //       )
-    //     )
+    //     ),
+    //     catchError((err: Error) => throwError(() => new Error(err.message)))
     //   );
   }
 }
