@@ -15,7 +15,7 @@ export class SearchComponent {
 
   onSubmit() {
     this.value = this.value.replaceAll(/( - |-| \/ |\/|; )/g, ', ');
-    this.submitEvent.emit(this.value);
+    this.submitEvent.emit(this.value.trim());
     this.value = '';
   }
 }

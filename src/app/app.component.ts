@@ -15,7 +15,7 @@ import { WeatherApi } from './interfaces/weather-api.interface';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  public start: boolean = true;
+  public start: boolean = false;
   public error: ErrorApi = { status: false };
   public loading: boolean = true;
   public weather?: WeatherApi;

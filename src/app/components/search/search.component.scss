@@ -11,12 +11,13 @@
 
   h1 {
     text-transform: uppercase;
-    font-style: oblique;
   }
 
   p {
     text-transform: uppercase;
     text-align: center;
+    margin: 0;
+    padding: 0;
   }
 
   input {
@@ -39,6 +40,15 @@
   input::placeholder {
     color: rgba(#2a0000, 0.8);
     font-style: oblique;
+  }
+
+  input:focus {
+    border-color: #011583;
+    color: #011583;
+  }
+
+  input:focus::placeholder {
+    color: #011583;
   }
 }
 
@@ -109,6 +119,7 @@ button::content {
   text-align: center;
   display: flex;
   justify-content: center;
+  margin: 0.3em 0;
 }
 
 .error {
