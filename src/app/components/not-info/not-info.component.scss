@@ -1,0 +1,15 @@
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 85vw;
+  height: 85vh;
+  background-color: #245494;
+  border-radius: 2em;
+}
+
+.title {
+  font-size: 3em;
+  text-align: center;
+}
