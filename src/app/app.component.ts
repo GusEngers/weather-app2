@@ -17,7 +17,7 @@ import { WeatherApi } from './interfaces/weather-api.interface';
 export class AppComponent implements OnInit {
   public start: boolean = false;
   public error: ErrorApi = { status: false };
-  public loading: boolean = true;
+  public loading: boolean = false;
   public weather?: WeatherApi;
   public daysWeather?: WeatherApi[];
   public location?: string;
@@ -26,66 +26,67 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // Buscamos la ubicación del cliente por su IP
-    // this.api.getHomeLocation().subscribe({
-    //   next: (value) => {
-    //     this.location = `${value.city}, ${value.region}, ${value.country_name}`;
-    //     // Buscamos los datos del clima de la ubicación del cliente
-    //     this.api.getWeatherDay(this.location).subscribe({
-    //       next: (value) => {
-    //         this.weather = value;
-    //         // Obtenemos los datos del clima de la ubicación de los siguientes 5 días
-    //         this.api.getWeatherFiveDays(this.location).subscribe({
-    //           next: (value) => {
-    //             this.daysWeather = value;
-    //             this.loading = false;
-    //             this.start = false;
-    //             this.error = { status: false };
-    //           },
-    //           error: (err) => {
-    //             this.error = { status: true, message: err.message };
-    //             this.loading = false;
-    //           },
-    //         });
-    //       },
-    //       error: (err) => {
-    //         this.error = { status: true, message: err.message };
-    //         this.loading = false;
-    //       },
-    //     });
-    //   },
-    //   error: () => {
-    //     this.start = true;
-    //     this.loading = false;
-    //   },
-    // });
+    this.api.getHomeLocation().subscribe({
+      next: (value) => {
+        this.location = `${value.city}, ${value.region}, ${value.country_name}`;
+        // Buscamos los datos del clima de la ubicación del cliente
+        this.api.getWeatherDay(this.location).subscribe({
+          next: (value) => {
+            this.weather = value;
+            // Obtenemos los datos del clima de la ubicación de los siguientes 5 días
+            this.api.getWeatherFiveDays(this.location).subscribe({
+              next: (value) => {
+                this.daysWeather = value;
+                this.loading = false;
+                this.start = false;
+                this.error = { status: false };
+              },
+              error: (err) => {
+                this.error = { status: true, message: err.message };
+                this.loading = false;
+              },
+            });
+          },
+          error: (err) => {
+            this.error = { status: true, message: err.message };
+            this.loading = false;
+          },
+        });
+      },
+      error: () => {
+        this.start = true;
+        this.loading = false;
+      },
+    });
   }
 
   handleSubmit(data: string) {
     this.loading = true;
     this.location = data;
-    setTimeout(() =>{
-      this.api.getWeatherDay(this.location).subscribe({
-        next: (value) => {
-          this.weather = value;
-          // Obtenemos los datos del clima de la ubicación de los siguientes 5 días
-          this.api.getWeatherFiveDays(this.location).subscribe({
-            next: (value) => {
-              this.daysWeather = value;
-              this.loading = false;
-              this.start = false;
-              this.error = { status: false };
-            },
-            error: (err) => {
-              this.error = { status: true, message: err.message };
-              this.loading = false;
-            },
-          });
-        },
-        error: (err) => {
-          this.error = { status: true, message: err.message };
-          this.loading = false;
-        },
-      });
-    }, 3000)
+    this.api.getWeatherDay(this.location).subscribe({
+      next: (value) => {
+        this.weather = value;
+        // Obtenemos los datos del clima de la ubicación de los siguientes 5 días
+        this.api.getWeatherFiveDays(this.location).subscribe({
+          next: (value) => {
+            this.daysWeather = value;
+            this.loading = false;
+            this.start = false;
+            this.error = { status: false };
+          },
+          error: (err) => {
+            this.error = { status: true, message: err.message };
+            this.loading = false;
+          },
+        });
+      },
+      error: (err) => {
+        this.error = {
+          status: true,
+          message: 'City, State or Country not found',
+        };
+        this.loading = false;
+      },
+    });
   }
 }

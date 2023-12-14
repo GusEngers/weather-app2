@@ -1,0 +1,130 @@
+.weather {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 85vw;
+  height: 85vh;
+  background-color: #245494;
+  border-radius: 2em;
+}
+
+.weather-sections {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  width: 100%;
+}
+
+/* -- Sección datos del día -- */
+.wo {
+  width: 50%;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  gap: 0;
+  grid-auto-rows: auto;
+  align-items: center;
+  justify-content: start;
+  padding: 1em;
+  
+  b {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    width: 30%;
+    text-align: center;
+    background-color: #1a3d69;
+    border-radius: 0.3em;
+    padding: 0.2em;
+  }
+}
+
+.wo-city {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  // border: 1px solid white;
+}
+
+.wo-img {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  padding: 0;
+  height: 10em;
+  // border: 1px solid green;
+}
+
+.wo-temp {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  margin: 0;
+  font-size: 4em;
+  // border: 1px solid yellow;
+}
+
+.wo-weathers {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  margin: 0.3em 0;
+  width: 100%;
+
+  // border: 1px solid pink;
+}
+
+/* -- Sección datos de los siguientes 5 días*/
+
+.wt {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  // border: 1px solid red;
+}
+
+.wt-day {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 30% 70%;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0;
+  padding: 0.3em 0 0.3em 2em;
+  margin: 0.3em 0;
+  // border: 1px solid red;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a3d69;
+  border-radius: 1em;
+}
+
+.wt-day-date {
+  grid-column: 1/3;
+  grid-row: 1/2;
+  // border: 1px solid white;
+  font-size: 1em;
+  margin: 0.2em;
+  padding: 0;
+}
+
+.wt-day-img {
+  grid-column: 1/2;
+  grid-row: 2/4;
+  width: 3em;
+  // border: 1px solid green;
+}
+
+.wt-day-max {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  margin: 0;
+  font-size: 0.7em;
+  // border: 1px solid yellow;
+}
+
+.wt-day-min {
+  grid-column: 2/3;
+  grid-row: 3/4;
+  margin: 0;
+  font-size: 0.7em;
+  // border: 1px solid cyan;
+}

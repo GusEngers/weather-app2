@@ -1,15 +1,15 @@
 @if (start) {
 
 <header class="header">
-  <h1>Info Clima</h1>
-  <p>Obtén los datos meteorológicos del lugar que quieras</p>
+  <h1>Weather App</h1>
+  <p>Get the weather data for the place you want</p>
   <form class="form" (submit)="onSubmit()">
-    <input type="search" [(ngModel)]="value" name="search" placeholder="Ciudad, Estado, País" />
-    <button type="submit" [disabled]="value.length <= 2">Buscar</button>
+    <input type="search" [(ngModel)]="value" name="search" placeholder="🔍 City, State, Country" />
+    <button type="submit" [disabled]="value.length <= 2">Search</button>
   </form>
 
   @if(value.length > 0 && value.length <= 2) {
-    <p class="error">Mínimo tres caracteres</p>
+    <p class="error">Minimum three characters</p>
   }
 
 </header>
@@ -18,12 +18,12 @@
 
 <nav class="nav">
   <form class="form" (submit)="onSubmit()">
-    <input type="search" [(ngModel)]="value" name="search" placeholder="🔍 Ciudad, Estado, País" />
-    <button type="submit" [disabled]="value.length <= 2">Buscar</button>
+    <input type="search" [(ngModel)]="value" name="search" placeholder="🔍 City, State, Country" />
+    <button type="submit" [disabled]="value.length <= 2">Search</button>
   </form>
 
   @if(value.length > 0 && value.length <= 2) {
-    <p class="error">Mínimo tres caracteres</p>
+    <p class="error">Minimum three characterss</p>
   }
 
 </nav>

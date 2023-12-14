@@ -3,9 +3,46 @@
 } @else if (error?.status) {
   <app-not-info [error]="error"></app-not-info>
 } @else {
-  <h1>{{ weather?.name }}</h1>
-  
-  @for (day of daysWeather; track $index) {
-    <p>{{ day.dt_txt }}</p>
-  }
+  <div class="weather">
+    <section class="weather-sections">
+      <!-- Sección datos del día -->
+      <div class="wo">
+        @if (weather && weather.name && weather.name.length > 15) {
+          <h1 class="wo-city">{{ weather.name | slice:0:15}}...</h1>
+        } @else {
+          <h1 class="wo-city">{{ weather?.name }}</h1>
+        }
+        <img
+          class="wo-img"
+          [src]="generateIcon(weather && weather.weather[0].icon)"
+          [alt]="weather?.name"
+        />
+        <p class="wo-temp">{{ weather?.main?.temp }}°C</p>
+        <p class="wo-weathers">Feels Like: </p><b>{{ weather?.main?.feels_like }}°C</b>
+        <p class="wo-weathers">Temp. Max: </p><b>{{ weather?.main?.temp_max }}°C</b>
+        <p class="wo-weathers">Temp. Min: </p><b>{{ weather?.main?.temp_min }}°C</b>
+        <p class="wo-weathers">Wind Speed: </p><b>{{ weather?.wind?.speed }} km/h</b>
+        <p class="wo-weathers">Humidity: </p><b>{{ weather?.main?.humidity }}%</b>
+        <p class="wo-weathers">Visibility: </p><b>{{ weather && weather.visibility / 1000 }} km</b>
+        <p class="wo-weathers">Pressure: </p><b>{{ weather?.main?.pressure }} mb</b>
+      </div>
+      <!-- Sección datos de los siguientes 5 días -->
+      <div class="wt">
+        <h2 class="wt-title">Next Days</h2>
+        @for (day of daysWeather; track $index) {
+          <div class="wt-day">
+            <h3 class="wt-day-date">{{ day.dt_txt | date:"d/M" }}</h3>
+            <img
+              class="wt-day-img"
+              [src]="generateIcon(day && day.weather[0].icon)"
+              [alt]="day?.name"
+            />
+            <p class="wt-day-max">Max: {{ day?.main?.temp_max }}°C</p>
+            <p class="wt-day-min">Min: {{ day?.main?.temp_min }}°C</p>
+          </div>
+        }
+      </div>
+
+    </section>
+  </div>
 }
