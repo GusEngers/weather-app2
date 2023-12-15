@@ -13,3 +13,14 @@
   font-size: 3em;
   text-align: center;
 }
+
+@media (max-width: 600px) {
+  .info {
+    border-radius: 0;
+    width: 95vw;
+  }
+
+  .title {
+    font-size: 1.5em;
+  }
+}

@@ -15,8 +15,7 @@ export class DataApiService {
   private API_KEY: string = import.meta.env['NG_APP_WEATHER_API_KEY'];
   private IP_API: string = import.meta.env['NG_APP_IP_API'];
   private WEATHER_API: string = import.meta.env['NG_APP_WEATHER_API'];
-  // private DEV: string = import.meta.env['NG_APP_ENV'];
-  private DEV: string = 'prod';
+  private MODE: string = import.meta.env['NG_APP_ENV'];
 
   constructor(private http: HttpClient) {}
 
@@ -25,7 +24,7 @@ export class DataApiService {
    * @returns {Observable<IpApi>}
    */
   getHomeLocation(): Observable<IpApi> {
-    if (this.DEV === 'development') return of(MOCK_IP);
+    if (this.MODE === 'development') return of(MOCK_IP);
     return this.http.get<IpApiResponse>(this.IP_API + '/json').pipe(
       map((value: IpApiResponse): IpApi => {
         return {
@@ -44,7 +43,7 @@ export class DataApiService {
    * @returns {Observable<WeatherApi>}
    */
   getWeatherDay(location: string = ''): Observable<WeatherApi> {
-    if (this.DEV === 'development') return of(MOCK_WEATHER);
+    if (this.MODE === 'development') return of(MOCK_WEATHER);
     return this.http
       .get<WeatherApi>(this.WEATHER_API + '/weather', {
         params: {
@@ -64,7 +63,7 @@ export class DataApiService {
    * @returns {Observable<WeatherApi[]>}
    */
   getWeatherFiveDays(location: string = ''): Observable<WeatherApi[]> {
-    if (this.DEV === 'development') return of(MOCK_DAYS_WEATHER);
+    if (this.MODE === 'development') return of(MOCK_DAYS_WEATHER);
     return this.http
       .get<ListWeatherResponse>(this.WEATHER_API + '/forecast', {
         params: {

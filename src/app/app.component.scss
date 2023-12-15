@@ -7,3 +7,9 @@
   background-color: #ffffff99;
   min-height: 100vh;
 }
+
+@media (max-width: 600px) {
+  .main {
+    width: max-content;
+  }
+}
